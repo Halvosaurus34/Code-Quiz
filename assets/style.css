@@ -1,4 +1,17 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: white;
+    background-attachment: fixed;
+    height:100%
+    ;
 }
 
+p {
+    position: absolute;
+    right: 75px;
+}
+
+.navbar {
+    background-color: white;
+    border-bottom: 2px solid grey;
+}
