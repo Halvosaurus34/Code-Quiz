@@ -4,27 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
     <title>Code Quiz</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand text-info" href="Highscores.html">View Highscores</a>
-            <p class="text-right text-info">Time Left:</p>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="Highscores.html">View Highscores</a>
+            <p class="text-right pt-3">Time Left:</p>
     </nav>
     <!-- All Done -->
     <div class="container w-50">
         <div class="display-4 ml-3 mt-4">All Done!</div>
-        <h3 class="m-3 lead">Your Score is:</h3>
+        <h3 class="m-3 lead" id="score">Your Score is:</h3>
         <div class="input-group mb-3 ml-3">
-            <input type="text" class="form-control" placeholder="Your Initials" aria-label="Your Initials" aria-describedby="button-addon2">
+            <input id="initials" type="text" class="form-control" placeholder="Your Initials" aria-label="Your Initials" aria-describedby="button-addon2">
             <div class="input-group-append">
               <button class="btn btn-info" type="button" id="button-addon2">Submit</button>
             </div>
         </div>
     </div>
-    <script src="assets/script.js"></script>
+    <script>
+        var scoreValue = document.getElementById('score')
+
+        //post score
+        scoreValue.innerText = `Your Score is: ${localStorage.score}`
+        
+        //store initials + score
+        document.getElementById('button-addon2').addEventListener('click', function() {
+            if (document.getElementById('initials').value == "") {
+                alert("Enter Your Initials!")
+            } else {
+                var highScoreUser =(document.getElementById('initials').value) + " Score: " + localStorage.score
+                localStorage.highScoreUser = highScoreUser
+                location.replace("Highscores.html")
+            }
+        })
+
+    </script>
 </body>
 </html>
