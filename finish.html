@@ -14,33 +14,50 @@
             <p class="text-right pt-3">Time Left:</p>
     </nav>
     <!-- All Done -->
-    <div class="container w-50">
-        <div class="display-4 ml-3 mt-4">All Done!</div>
-        <h3 class="m-3 lead" id="score">Your Score is:</h3>
-        <div class="input-group mb-3 ml-3">
+    <div class="container w-50 border border-dark rounded mt-4">
+        <div class="display-4 ml-3 mt-4 text-center">All Done!</div>
+        <h3 class="m-3 lead text-center" id="score">Your Score is:</h3>
+        <div class="input-group mb-3 ml-5 w-50 mx-auto">
             <input id="initials" type="text" class="form-control" placeholder="Your Initials" aria-label="Your Initials" aria-describedby="button-addon2">
             <div class="input-group-append">
-              <button class="btn btn-info" type="button" id="button-addon2">Submit</button>
+              <button class="btn btn-info text-center" type="button" id="button-addon2">Submit</button>
             </div>
         </div>
     </div>
     <script>
         var scoreValue = document.getElementById('score')
+        var scoreListArray = []
+        function storeScore() {
+            if (localStorage.scoreCount == undefined || localStorage.scoreCount == "") {
+                localStorage.scoreCount = 0
+                console.log("set to zero", localStorage.scoreCount)
+            } else {
+                console.log("set to self",localStorage.scoreCount)
+            }
+            scoreListArray.push(JSON.parse(localStorage.scoreList))
+            console.log("scoreArray",scoreListArray)
+            console.log("score storage",localStorage.scoreCount)
+            console.log("score Array",scoreListArray[0][localStorage.scoreCount])
+            //post score
+            scoreValue.innerText = `Your Score is: ${scoreListArray[0][localStorage.scoreCount]}`
+            localStorage.scoreCount++
+            console.log("added one to storage", localStorage.scoreCount)
+            }
 
-        //post score
-        scoreValue.innerText = `Your Score is: ${localStorage.score}`
-        
         //store initials + score
         document.getElementById('button-addon2').addEventListener('click', function() {
             if (document.getElementById('initials').value == "") {
                 alert("Enter Your Initials!")
             } else {
-                var highScoreUser =(document.getElementById('initials').value) + " Score: " + localStorage.score
-                localStorage.highScoreUser = highScoreUser
+                var userList = JSON.parse(localStorage.userList || "[]" )
+                var userName = document.getElementById("initials").value
+                userList.push (userName);
+                localStorage.userList = JSON.stringify (userList)
                 location.replace("Highscores.html")
+
             }
         })
-
+        storeScore()
     </script>
 </body>
 </html>
