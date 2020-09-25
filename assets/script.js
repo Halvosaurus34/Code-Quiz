@@ -66,22 +66,22 @@ var listenEl = document.getElementById('questionCon')
 listenEl.addEventListener("click", function(event) {
     event.preventDefault();
     if(event.target.matches("button")) {
-        console.log("Your Guess" + event.target.id)
-        console.log("Right Answer" + correctAns)
+        //check if the button press was correct
         if (event.target.id == correctAns)  {
             console.log(`[correctAns] you guessed correct`)
+            document.getElementById('wrongRight').innerHTML = '<h5>Correct!</h5>'
         } else {
             console.log("WRONG")
+            document.getElementById('wrongRight').innerHTML = '<h5>Incorrect!</h5>'
             time -= 10;
         }
+        //load next question when button is pressed
         if (currentQuestion < quizData.length) {
             loadQuiz();
         } else {
-        //store score and change sites
-            localStorage.score = score
-            console.log(`[storage] ${localStorage.score}`)
-            // clearInterval(intervalSet)
-                //Gameover
+            //store score and change sites
+            saveScore()
+            // localStorage.score = score
             location.replace("finish.html")
         }
     }
@@ -90,7 +90,6 @@ listenEl.addEventListener("click", function(event) {
 var navTimer = document.getElementById('navTimer');
 var time = 60
 var score = []
-localStorage.score = score
   
 //starts the quiz timer
 function quizTimer() {
@@ -98,13 +97,23 @@ function quizTimer() {
         navTimer.innerText = `Time Left: ${time}`
         time--;
         score = time
+        //if time runs out, game over
         if (time < 1) {
             clearInterval(intervalSet)
-            localStorage.score = score
+            saveScore()
+            // localStorage.score = score
             location.replace("finish.html")
         }
     }, 1000)
 }
+
+function saveScore(){
+    
+    var scoreList = JSON.parse ( localStorage.scoreList || "[]" )
+    scoreList.push(score);
+    localStorage.scoreList = JSON.stringify( scoreList);
+    
+}    
 //initializes functions
 loadQuiz();
 quizTimer();
