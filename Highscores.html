@@ -9,30 +9,58 @@
     <title>Code Quiz</title>
 </head>
 <body>
+    
+    <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="Highscores.html">View Highscores</a>
             <p class="text-right pt-3">Time Left:</p>
     </nav>
+
     <!-- HighScore -->
-    <div class="container w-50">
+    <div class="container w-50 border border-dark rounded mt-4">
         <div class="display-4 ml-3 mt-4">HighScores</div>
-        <div class="alert alert-info mt-3 ml-3" role="alert" id="highscore">
-            A simple info alert—check it out!
-        </div>
+        <ul class="alert alert-info mt-3 ml-3" id="highscore"></ul>
         <div class="row ml-3">
             <a href="index.html" class="btn btn-info col-6 mt-2 text-left" id="answer3">Home Page</a>
         </div>
         <div class="row ml-3">
-            <a href="#" class="btn btn-info col-6 mt-2 text-left" id="clearBtn">Clear HighScores</a>
+            <a href="#" class="btn btn-info col-6 mt-2 text-left mb-3" id="clearBtn">Clear HighScores</a>
         </div>
     </div>
     <script>
-        document.getElementById('highscore').innerHTML = `<div role="alert">${localStorage.highScoreUser}</div>`
-        console.log(localStorage.highScoreUser)
+        //set empty arrays
+        var scoreListArray = []
+        var userArray = []
+        function storeScore(){
+            // if (localStorage.scoreCount2 == undefined || localStorage.scoreCount2 == "") {
+            //         localStorage.scoreCount2 = 0
+            //         console.log("set to zero", localStorage.scoreCount2)
+            // } else {
+            //     console.log("set to self",localStorage.scoreCount2)
+            // }
+            //turns localStorage string into array
+            scoreListArray = JSON.parse(localStorage.scoreList)
+            userArray = JSON.parse(localStorage.userList)
+            for (var i = 0; i < userArray.length; i++) {
+                //adds HTML to list element
+                document.getElementById('highscore').innerHTML +=`<li>Initials: ${userArray[i]}   Score: ${scoreListArray[i]}</li>`
+            }
+            // userArray.forEach(arrayFunc())
+            // function arrayFunc(userArray, scoreListArray){
+            //     document.getElementById('highscore').innerHTML += userArray + ":" + scoreListArray + "<br>"
+            // }
+            }
+        
+
+        //clears highscore history
         document.getElementById('clearBtn').addEventListener('click', function(){
             document.getElementById('highscore').innerHTML = ""
-            localStorage.highScoreUser = ""
+            localStorage.userList = ""
+            localStorage.scoreCount2 = ""
+            localStorage.scoreCount = ""
+            localStorage.scoreList = ""
         })
+        storeScore()
     </script>
 </body>
 </html>
