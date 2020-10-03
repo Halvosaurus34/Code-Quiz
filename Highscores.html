@@ -1,66 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/style.css" />
     <title>Code Quiz</title>
-</head>
-<body>
-    
+  </head>
+  <body>
     <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="Highscores.html">View Highscores</a>
-            <p class="text-right pt-3">Time Left:</p>
+      <a class="navbar-brand" href="Highscores.html">View Highscores</a>
+      <p class="text-right pt-3">Time Left:</p>
     </nav>
 
     <!-- HighScore -->
-    <div class="container w-50 border border-dark rounded mt-4">
-        <div class="display-4 ml-3 mt-4">HighScores</div>
-        <ul class="alert alert-info mt-3 ml-3" id="highscore"></ul>
-        <div class="row ml-3">
-            <a href="index.html" class="btn btn-info col-6 mt-2 text-left" id="answer3">Home Page</a>
-        </div>
-        <div class="row ml-3">
-            <a href="#" class="btn btn-info col-6 mt-2 text-left mb-3" id="clearBtn">Clear HighScores</a>
-        </div>
+    <div class="container w-100 border border-dark rounded mt-4">
+      <div class="display-4 ml-3 mt-4">HighScores</div>
+      <ul class="alert alert-info mt-3 ml-3" id="highscore"></ul>
+      <div class="row ml-3">
+        <a
+          href="index.html"
+          class="btn btn-info col-6 col-md-3 mt-2 text-left"
+          id="answer3"
+          >Home Page</a
+        >
+      </div>
+      <div class="row ml-3">
+        <a
+          href="#"
+          class="btn btn-info col-6 col-md-3 mt-2 text-left mb-3"
+          id="clearBtn"
+          >Clear HighScores</a
+        >
+      </div>
     </div>
     <script>
-        //set empty arrays
-        var scoreListArray = []
-        var userArray = []
-        function storeScore(){
-            // if (localStorage.scoreCount2 == undefined || localStorage.scoreCount2 == "") {
-            //         localStorage.scoreCount2 = 0
-            //         console.log("set to zero", localStorage.scoreCount2)
-            // } else {
-            //     console.log("set to self",localStorage.scoreCount2)
-            // }
-            //turns localStorage string into array
-            scoreListArray = JSON.parse(localStorage.scoreList)
-            userArray = JSON.parse(localStorage.userList)
-            for (var i = 0; i < userArray.length; i++) {
-                //adds HTML to list element
-                document.getElementById('highscore').innerHTML +=`<li>Initials: ${userArray[i]}   Score: ${scoreListArray[i]}</li>`
-            }
-            // userArray.forEach(arrayFunc())
-            // function arrayFunc(userArray, scoreListArray){
-            //     document.getElementById('highscore').innerHTML += userArray + ":" + scoreListArray + "<br>"
-            // }
-            }
-        
+      //set empty arrays
+      var scoreListArray = [];
+      var userArray = [];
+      function storeScore() {
+        scoreListArray = JSON.parse(localStorage.scoreList);
+        userArray = JSON.parse(localStorage.userList);
+        for (var i = 0; i < userArray.length; i++) {
+          //adds HTML to list element
+          document.getElementById(
+            "highscore"
+          ).innerHTML += `<li>Initials: ${userArray[i]}   Score: ${scoreListArray[i]}</li>`;
+        }
+      }
 
-        //clears highscore history
-        document.getElementById('clearBtn').addEventListener('click', function(){
-            document.getElementById('highscore').innerHTML = ""
-            localStorage.userList = ""
-            localStorage.scoreCount2 = ""
-            localStorage.scoreCount = ""
-            localStorage.scoreList = ""
-        })
-        storeScore()
+      //clears highscore history
+      document
+        .getElementById("clearBtn")
+        .addEventListener("click", function () {
+          document.getElementById("highscore").innerHTML = "";
+          localStorage.userList = "";
+          localStorage.scoreCount2 = "";
+          localStorage.scoreCount = "";
+          localStorage.scoreList = "";
+        });
+      storeScore();
     </script>
-</body>
+  </body>
 </html>
